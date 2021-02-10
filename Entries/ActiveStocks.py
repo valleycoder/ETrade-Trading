@@ -59,8 +59,8 @@ ActiveStockItems:List[ActiveStockItem] = []
 ActiveStockItems.append(GetActiveStockItem(ActiveItem("XXXXX", 162.55, 2, 2, SellDeltaType.FIXED, 1, 0, 1)))
 ActiveStockItems.append(GetActiveStockItem(ActiveItem("YXYXXX", 112.55, 2, 2, SellDeltaType.FIXED, 1, 0, 1)))
 ActiveStockItems.append(GetActiveStockItem(ActiveItem("ABDD56", 17.05, 0.25, 0.25, SellDeltaType.FIXED, 1, 0, 1)))
-ActiveStockItems.append(GetActiveStockItem(ActiveItem("X123E", 24.55, 0.25, 0.25, SellDeltaType.FIXED, 1, 0, 1)))
-ActiveStockItems.append(GetActiveStockItem(ActiveItem("LXYDE", 42.05, 0.5, 0.5, SellDeltaType.FIXED, 1, 0, 1)))
+ActiveStockItems.append(GetActiveStockItem(ActiveItem("XwdE", 24.55, 0.25, 0.25, SellDeltaType.FIXED, 1, 0, 1)))
+ActiveStockItems.append(GetActiveStockItem(ActiveItem("LXzzE", 42.05, 0.5, 0.5, SellDeltaType.FIXED, 1, 0, 1)))
 
 # Make sure all the stock symbols are in capital letters.
 for activeStockItem in ActiveStockItems:

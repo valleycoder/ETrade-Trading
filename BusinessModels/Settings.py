@@ -31,11 +31,11 @@ class Settings:
 
     """
     
-    ConfigFilePathWithName = "C://Users//**//TradingTools//Python//Trading//Entries//config.ini"
+    ConfigFilePathWithName = "C://Users//Ravi//Desktop//current projects//ETrade-Trading//Entries//TradingConfig.ini"
     # ChromeDriverPathWithName = "//Users/**//Trading//Trading-1//ChromeDriver//Mac//V86//chromedriver"
-    ChromeDriverPathWithName = "C://Users//**//Trading//ChromeDriver//Windows//V86//chromedriver.exe"
-    LogFilePathWithName = "C://Users//**//TradingTools//Python//Trading//Entries//trader_client.log"
-    MoneyMakerLogFilePathWithName = "C://Users//**//TradingTools//Python//Trading//Entries//money_maker.log"
+    ChromeDriverPathWithName = "C://Users//Ravi//Desktop//current projects//ETrade-Trading//ChromeDriver//Windows//V86//chromedriver.exe"
+    LogFilePathWithName = "C://Users//Ravi//Desktop//current projects//ETrade-Trading//Entries//trader_client.log"
+    MoneyMakerLogFilePathWithName = "C://Users//Ravi//Desktop//current projects//ETrade-Trading//Entries//money_maker.log"
     IsAuthorizationManual = False
     CycleWaitTimeInSeconds = 60
     NewOrderId = -9999

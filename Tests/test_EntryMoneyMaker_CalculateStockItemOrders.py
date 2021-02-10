@@ -15,6 +15,7 @@ from BusinessModels.Settings import Settings
 from Entries.EntryHelpers.ManageOrdersHelpers import ManageOrdersHelpers
 from Entries.EntryInputs.EntryMoneyMakerInput import EntryMoneyMakerInput
 from Entries.EntryMoneyMaker import MoneyMaker
+from Entries.ActiveStocks import ActiveStockItems
 
 
 class tests_ManageOrdersHelpers_GeneratePossibleLimitOrders(unittest.TestCase):
@@ -111,6 +112,9 @@ class tests_ManageOrdersHelpers_GeneratePossibleLimitOrders(unittest.TestCase):
         print(placeOrders)
 
         print(cancelOrders)
+
+        for activeStockItem in ActiveStockItems:
+            print(activeStockItem.Symbol)
     
     
 if __name__ == '__main__':
