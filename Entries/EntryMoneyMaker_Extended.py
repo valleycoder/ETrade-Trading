@@ -1,4 +1,4 @@
-# This is work in progress.
+# This a work in progress. I don't ETrade account to validate this.
 
 import os
 import sys
@@ -6,8 +6,6 @@ import time
 from datetime import datetime
 from pathlib import Path
 from typing import List, Tuple
-
-import pytz
 
 # Add the Parent path of the Entries folder to the system path.
 # Need to find out if there is a better way of doing this.
@@ -70,7 +68,7 @@ class MoneyMaker:
                 - Calculate possible orders using the portfolio quantity and algorithm.
                 - Compare available orders with calculated possible orders.
                     - If both orders are same then move to next stock item.
-                    - If orders are different. Cancel all existing orders and place the possible calculated orders.
+                    - If orders are different. Cancel all existing orders and place the possible caculated orders.
                     - Thats it - Sweet and Simple.
                 - Move to next stock item.
             Repeat the above process after a fixed interval.
@@ -118,15 +116,13 @@ class MoneyMaker:
                 self.LogMessage(f"Message Description - {message.Description}", True, True)
         ProcessMessageError(messages, self.MoneyMakerInput)
 
-    def OrderInput(self, symbol:str, orderAction:str, 
-                    limitPrice:float, quantity:int,
-                    orderTerm:str = "GOOD_FOR_DAY",
-                    marketSession:str = "EXTENDED",
-                    allOrNone:bool = False
-                    ) -> PreviewOrderInput:
+    def OrderInput(self, symbol:str, orderAction:str, limitPrice:float, quantity:int) -> PreviewOrderInput:
         """ Creates the input for the preview order.
             OrderType is fixed to "EQ"
             PriceType is fixed to "LIMIT"
+            OrderTerm is fixed to "GOOD_UNTIL_CANCEL"
+            MarketSession is fixed to "REGULAR"
+            AllOrNone is fixed to "true"
 
             Parameters:
 
@@ -138,13 +134,6 @@ class MoneyMaker:
 
             quantity:int - Order quantity.
 
-            orderTerm:str - GOOD_FOR_DAY, GOOD_UNTIL_CANCEL. Good until cancel is for 60 days.
-
-            marketSession:str - EXTENDED, REGULAR
-
-            allOrNone:bool - Whether entire quantity should be processed or part of quanitity is
-                processed. When market session is EXTENDED allOrNone should be false.
-
         """
         previewOrderInput = PreviewOrderInput()
 
@@ -155,16 +144,15 @@ class MoneyMaker:
 
         # Build the order detail.
         orderDetail = OrderDetail()
+        # "false"
         orderDetail.AllOrNone = "false"
-        if(allOrNone is True):
-            orderDetail.AllOrNone = "true"
         orderDetail.PriceType = "LIMIT"
         # GOOD_FOR_DAY
         # GOOD_UNTIL_CANCEL
-        orderDetail.OrderTerm = orderTerm
+        orderDetail.OrderTerm = "GOOD_FOR_DAY"
         # REGULAR
         # EXTENDED
-        orderDetail.MarketSession = marketSession
+        orderDetail.MarketSession = "EXTENDED"
         orderDetail.StopPrice = ""
         orderDetail.LimitPrice = limitPrice
         orderDetail.Instruments = []
@@ -184,7 +172,6 @@ class MoneyMaker:
 
     def AddCommissionToSellOrder(self, orderInfo:OrderInfo, activeStockItem:ActiveStockItem):
         """ Add commission to the Sell Order based on the CommisionType in the settings.
-            Commission should also include Extended trading hours costs if any.
 
             CommissionType = 1 - commission is fixed value.
             CommissionType = 2 - commission is percentage.
@@ -267,7 +254,7 @@ class MoneyMaker:
                 for instrument in orderDetail.Instruments:                    
                     inst:Instrument = instrument     
                     # If OPEN and BUY
-                    if inst.Symbol == activeStockItem.Symbol and orderDetail.Status == "OPEN" and \
+                    if inst.Symbol.upper() == activeStockItem.Symbol.upper() and orderDetail.Status == "OPEN" and \
                         inst.OrderAction == "BUY":
                         # There is a chance of partial fill.
                         calculatedQuantity = calculatedQuantity + inst.FilledQuantity
@@ -280,7 +267,7 @@ class MoneyMaker:
                         skipOrder = True 
                         break      
                     # If OPEN and SELL.            
-                    elif inst.Symbol == activeStockItem.Symbol and orderDetail.Status == "OPEN" and \
+                    elif inst.Symbol.upper() == activeStockItem.Symbol.upper() and orderDetail.Status == "OPEN" and \
                         inst.OrderAction == "SELL":
                         # There is a chance of partial fill.
                         calculatedQuantity = calculatedQuantity + inst.OrderedQuantity - inst.FilledQuantity
@@ -291,6 +278,11 @@ class MoneyMaker:
                 if skipOrder is True:
                     skipOrder = False
                     break
+
+        if(len(openLimitOrders) != len(openOrders)):
+            self.LogMessage(f"Number of open limit orders should be same as that of open orders.", True, True)
+            self.LogMessage("Aborting the application.", True, True)
+            raise Exception("Fatal Error.")
 
         # If no open orders. 
         if len(openLimitOrders) == 0:
@@ -306,7 +298,7 @@ class MoneyMaker:
         for limitOrder in limitOrders:
             found = False
             for openLimitOrder in openLimitOrders:
-                if limitOrder.Symbol == openLimitOrder.Symbol and \
+                if limitOrder.Symbol.upper() == openLimitOrder.Symbol.upper() and \
                     limitOrder.LimitPrice == openLimitOrder.LimitPrice and \
                     limitOrder.Quantity == openLimitOrder.Quantity and \
                     limitOrder.IsPartialFilled == openLimitOrder.IsPartialFilled and \
@@ -368,34 +360,6 @@ class MoneyMaker:
         return finalLimitOrders, cancelOrders
         """
 
-    def IsExtendedHourTradingTime(self, dateTime:datetime) -> bool:
-        """ Checks whether the date time is in the extended hours timings or not.
-        Extended Pre-Market hours - 7 - 9.30 hours Monday-Friday.
-        Extended Post-Market hours - 16 - 20 hours Monday-Friday.
-
-        Need to take care of holidays also.
-
-        The timings and week days are hard-coded in this method.
-
-        """
-        est = pytz.timezone('US/Eastern')
-
-        isExtended:bool = False
-        weekDay:int = dateTime.astimezone(est).date().weekday()
-        hour:int = dateTime.astimezone(est).time().hour
-        minute:int = dateTime.astimezone(est).time().minute
-
-        # If not a Saturday or Sunday.
-        if((weekDay != 5) and (weekDay != 6)):   
-            # If between 4PM - 8PM         
-            if((hour >= 16) and (hour <= 19)):
-                isExtended = True
-            # If between 7AM - 9:30AM
-            elif(((hour >= 7) and (hour <= 8)) or (hour == 9 and minute <= 29)):
-                isExtended = True
-
-        return isExtended
-
     def DoMakeMoney(self):
         """ Tries to make money following the below process.
             General steps are:
@@ -406,7 +370,7 @@ class MoneyMaker:
                 - Calculate possible orders using the portfolio quantity and algorithm.
                 - Compare available orders with calculated possible orders.
                     - If both orders are same then move to next stock item.
-                    - If orders are different. Cancel all existing orders and place the possible calculated orders.
+                    - If orders are different. Cancel all existing orders and place the possible caculated orders.
                     - Thats it - Sweet and Simple.
                 - Move to next stock item.
             Repeat the above process after a fixed interval.
@@ -479,7 +443,7 @@ class MoneyMaker:
                             len(portfolioResponse.AccountPortfolios) != 0 and \
                             portfolioResponse.AccountPortfolios[0].PortfolioPositions is not None and \
                             len(portfolioResponse.AccountPortfolios[0].PortfolioPositions) != 0:
-                            portfolioPosition = next((item for item in portfolioResponse.AccountPortfolios[0].PortfolioPositions if item.Symbol == self.MoneyMakerInput.ActiveStockItems[activeStockIndex].Symbol), portfolioPosition)
+                            portfolioPosition = next((item for item in portfolioResponse.AccountPortfolios[0].PortfolioPositions if item.Symbol.upper() == self.MoneyMakerInput.ActiveStockItems[activeStockIndex].Symbol.upper()), portfolioPosition)
 
                         # If not present.
                         if(portfolioPosition.Symbol == dummySymbol):
@@ -576,10 +540,7 @@ class MoneyMaker:
                                 
                                 # Generate order input.
                                 orderData = self.OrderInput(limitOrder.Symbol,
-                                                    orderAction, limitOrder.LimitPrice, 
-                                                    limitOrder.Quantity,
-                                                    "GOOD_FOR_DAY", "EXTENDED", False
-                                                    )
+                                                    orderAction, limitOrder.LimitPrice, limitOrder.Quantity)
                                 
                                 # Preview order.
                                 previewOrderResponse = self.MoneyMakerInput.Order.PreviewOrderEQ(accountIdKey= self.MoneyMakerInput.ETradeSettings.AccountIdKey, 
@@ -830,7 +791,6 @@ class MoneyMaker:
 if __name__ == "__main__":
     """ Main driver program which tries to make money.
     """
-
     from BusinessModels.Settings import Settings
     manageOrdersHelpers:ManageOrdersHelpers = ManageOrdersHelpers(Settings())
 
@@ -838,12 +798,3 @@ if __name__ == "__main__":
     
     # Call DoMakeMoney on the MoneyMaker object.
     MoneyMaker(entryInput, manageOrdersHelpers).DoMakeMoney()
-
-    currentTime: datetime = datetime(2020, 11, 1, 1, 53)
-    isExtended:bool = MoneyMaker(entryInput, manageOrdersHelpers).IsExtendedHourTradingTime(currentTime)
-    if(isExtended is True):
-        print("Extended Hours")
-    else:
-        print("Not Extended Hours")
-    
-
