@@ -23,7 +23,7 @@
 	
 - Change the ConfigFilePathWithName, LogFilePathWithName and MoneyMakerLogFilePathWithName to your
 	convenient paths.
-	Copy the Entries//config.ini file to Config file path folder. 
+	Copy the Entries//TradingConfig.ini file to Config file path folder. 
 	You can change the file names.
 
 - Request your broker to change the stock sales to LIFO. Since we are selling for frequent small profits
