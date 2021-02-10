@@ -1,0 +1,4 @@
+Whenever a new version of Chrome is released, we need to patch the chromedriver of the
+corresponding chrome version.
+
+https://stackoverflow.com/questions/33225947/can-a-website-detect-when-you-are-using-selenium-with-chromedriver/41220267

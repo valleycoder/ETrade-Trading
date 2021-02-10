@@ -1,0 +1,45 @@
+- Make sure Python3 is installed.
+
+- Install the libraries in requirements.txt. Command is pip3 install -r requirements.txt
+
+- Change AccountUserName and AccountPassword in ETrade\ETradeBusinessModels\ETradeSettings.py
+
+- Change the AccountIdKey, ConsumerKey and ConsumerSecret in ETrade\ETradeBusinessModels\ETradeSettings.py. 
+	AccountIdKey can be obtained by running the Entries\EntryAccount.py script. To run Entries\EntryAccount.py script valid 
+	ConsumerKey and ConsumerSecret must be present in the ETrade\ETradeBusinessModels\ETradeSettings.py.
+	ConsumerKey and ConsumerSecret are provided by ETrade.
+
+- Make sure you have chrome version 85/86 installed. If you don't want to Install Chrome then set the
+  	IsAuthorizationManual to True in BusinessModels\Settings.py so that the application will open your 
+  	preffered browser and allow you to enter the credentials. Copy the text code and enter at the terminal
+  	prompt.
+
+- Change the ChromeDriverPathWithName in BusinessModels\Settings.py. Mac path is 
+	commented in the file. You need to change the first half of the path to project folder
+	location. Tail of the path "ChromeDriver//Mac//V**//chromedriver" will be same.
+	The path is based on the Chrome version installed. Each major version of the chrome has a 
+	corresponding chrome driver. You have patch the chrome driver for new versions.
+	Patch chrome driver - https://stackoverflow.com/questions/33225947/can-a-website-detect-when-you-are-using-selenium-with-chromedriver/41220267
+	
+- Change the ConfigFilePathWithName, LogFilePathWithName and MoneyMakerLogFilePathWithName to your
+	convenient paths.
+	Copy the Entries//config.ini file to Config file path folder. 
+	You can change the file names.
+
+- Request your broker to change the stock sales to LIFO. Since we are selling for frequent small profits
+	we have to use LIFO to avoid wash sales. You can also do this in the account preferences section
+	of the ETrade account.
+	https://www.fool.com/knowledge-center/how-to-sell-stock-with-fifo-or-lifo.aspx
+	https://en.wikipedia.org/wiki/Wash_sale
+
+- If you are on a Windows system, Disable QuickEdit in Windows command prompt - cmd.exe.
+	https://stackoverflow.com/questions/37578529/disable-quickedit-in-windows-10-cmd-exe/37578608
+
+- Run the Entries\EntryMarket.py file. Everything is setup properly if you see the "GE" stock quote.
+
+- Entries\ActiveStocks.py is where you manage the list of stocks. You just have to
+	populate ActiveStockItems:List[ActiveStockItem] with your stocks. 
+
+- Entries\EntryMoneyMaker.py is our Money Maker :)
+
+- Please look at the RemainingItems.txt for any outstanding issues.

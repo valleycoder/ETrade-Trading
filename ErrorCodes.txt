@@ -1,0 +1,9 @@
+## Error codes - https://apisb.etrade.com/docs/api/order/api-order-v1.html#/definition/getOrders
+
+# Error code - 5003
+# Code - 5011
+# Handle 1021, 8400 Insufficient funds errors - Order will not be placed.
+# Handle 6 Zero or Negative limit price error - This should never occur.
+# 163 - We can proceed and try again.
+# Hande 9010 - Split/Reverse Split warning.
+

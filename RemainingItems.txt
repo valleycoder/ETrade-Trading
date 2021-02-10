@@ -1,0 +1,33 @@
+- Unit and Integration Tests. Need more tests.
+
+- Split(Reverse Split). For now just remove the stock from the list on Split(Reverse Split) day and 
+	update the price coordinates accordingly. 
+	
+	In case of Split you can also make MaxActiveBuy to zero 
+	so that system will not BUY any more stocks of the corresponding stock item.
+
+	One other option in case of Split is to set a different price coordinate for each stock and adjust the
+	price coordinate in such a way that the system will not BUY stocks at a much lower price.
+
+	You have to keep track which stocks you own are going to Split(Reverse Split) in the next week. 
+	I would check every Sunday and Wednesday evening. 
+	Just pick 2 or 3 websites and keep monitoring twice a week. 
+	Even though it's not 100% reliable because some websites don't promptly update this 
+	information, we can still automate this.
+
+	Example site where you can monitor Split(Reverse Split) activities.
+	https://eresearch.fidelity.com/eresearch/conferenceCalls.jhtml?tab=splits
+
+
+- Commission. Right now BUY/SELL commission is zero. If commission changes, need to update the 
+	ETradeSettings.py. It works!!!
+
+	Good to have in future - Need storage mechanism to track commission changes/history. Also, we 
+	should be able to figure out how much commision was charged for an executed BUY order.
+
+- Error Notifications - For now errors are displayed in the terminal and stored in the log file.
+
+
+- Information - If you cancel a partial filled order, fees will be charged for the entire order.
+- Information - In extended hours trading, all orders will be cancelled at the end of the extended 
+	hours trading session.
