@@ -62,9 +62,9 @@ ActiveStockItems.append(GetActiveStockItem(ActiveItem("ABDD56", 17.05, 0.25, 0.2
 ActiveStockItems.append(GetActiveStockItem(ActiveItem("XwdE", 24.55, 0.25, 0.25, SellDeltaType.FIXED, 1, 0, 1)))
 ActiveStockItems.append(GetActiveStockItem(ActiveItem("LXzzE", 42.05, 0.5, 0.5, SellDeltaType.FIXED, 1, 0, 1)))
 
-# Make sure all the stock symbols are in capital letters.
+# Make sure all the stock symbols are in capital letters without any leading and trailing whitespaces.
 for activeStockItem in ActiveStockItems:
-    activeStockItem.Symbol = activeStockItem.Symbol.upper()
+    activeStockItem.Symbol = activeStockItem.Symbol.upper().strip()
 
 # Check if there are any duplicates in the ActiveStockItems list.
 if(len(ActiveStockItems) != len(set(activeStockItem.Symbol for activeStockItem in ActiveStockItems))):
