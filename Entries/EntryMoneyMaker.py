@@ -143,14 +143,14 @@ class MoneyMaker:
         # Build the order detail.
         orderDetail = OrderDetail()
         # "false"
-        orderDetail.AllOrNone = "false"
+        orderDetail.AllOrNone = "true"
         orderDetail.PriceType = "LIMIT"
         # GOOD_FOR_DAY
         # GOOD_UNTIL_CANCEL
-        orderDetail.OrderTerm = "GOOD_FOR_DAY"
+        orderDetail.OrderTerm = "GOOD_UNTIL_CANCEL"
         # REGULAR
         # EXTENDED
-        orderDetail.MarketSession = "EXTENDED"
+        orderDetail.MarketSession = "REGULAR"
         orderDetail.StopPrice = ""
         orderDetail.LimitPrice = limitPrice
         orderDetail.Instruments = []
