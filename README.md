@@ -1,6 +1,6 @@
 ETrade Equity trading bot. 
 
-Please read the Instructions.txt file for details.
+Please read the Instructions.txt file for details. This is important.
 
 Please read the code and try to understand the approach.
 
