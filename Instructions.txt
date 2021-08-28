@@ -9,7 +9,7 @@
 	ConsumerKey and ConsumerSecret must be present in the ETrade\ETradeBusinessModels\ETradeSettings.py.
 	ConsumerKey and ConsumerSecret are provided by ETrade.
 
-- Make sure you have chrome version 85/86 installed. If you don't want to Install Chrome then set the
+- Make sure you have chrome browser installed. If you don't want to Install Chrome then set the
   	IsAuthorizationManual to True in BusinessModels\Settings.py so that the application will open your 
   	preffered browser and allow you to enter the credentials. Copy the text code and enter at the terminal
   	prompt.
