@@ -2,12 +2,10 @@
 
 - Install the libraries in requirements.txt. Command is pip3 install -r requirements.txt
 
-- Change AccountUserName and AccountPassword in ETrade\ETradeBusinessModels\ETradeSettings.py
+- Get the ConsumerKey and ConsumerSecret for your ETrade Account by following the link - https://developer.etrade.com/getting-started
+	You will need to e-sign the "API Agreement" and "Market Data Agreement".
 
-- Change the AccountIdKey, ConsumerKey and ConsumerSecret in ETrade\ETradeBusinessModels\ETradeSettings.py. 
-	AccountIdKey can be obtained by running the Entries\EntryAccount.py script. To run Entries\EntryAccount.py script valid 
-	ConsumerKey and ConsumerSecret must be present in the ETrade\ETradeBusinessModels\ETradeSettings.py.
-	ConsumerKey and ConsumerSecret are provided by ETrade.
+- Change AccountUserName and AccountPassword in ETrade\ETradeBusinessModels\ETradeSettings.py
 
 - Make sure you have chrome browser installed. If you don't want to Install Chrome then set the
   	IsAuthorizationManual to True in BusinessModels\Settings.py so that the application will open your 
@@ -34,6 +32,11 @@
 
 - If you are on a Windows system, Disable QuickEdit in Windows command prompt - cmd.exe.
 	https://stackoverflow.com/questions/37578529/disable-quickedit-in-windows-10-cmd-exe/37578608
+	
+- Change the AccountIdKey, ConsumerKey and ConsumerSecret in ETrade\ETradeBusinessModels\ETradeSettings.py. 
+	AccountIdKey can be obtained by running the Entries\EntryAccount.py script. To run Entries\EntryAccount.py script valid 
+	ConsumerKey and ConsumerSecret must be present in the ETrade\ETradeBusinessModels\ETradeSettings.py.
+	ConsumerKey and ConsumerSecret are provided by ETrade.
 
 - Run the Entries\EntryMarket.py file. Everything is setup properly if you see the "GE" stock quote.
 
