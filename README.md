@@ -2,7 +2,7 @@ ETrade Equity trading bot.
 
 Please read the Instructions.txt file for details. This is important.
 
-Please read the code and try to understand the approach.
+Please read the code and try to understand the approach. <b>There is no timeline to meet and stock markets are going to be there forever so you have all the time in world to understand the script and approach. This is a very valuable working money making script. If you understand the script you can modify to use with other trading platforms.</b>
 
 Please use the script at your own risk. If you don't know python and if you can't read python code then maybe it's a good idea to skip this repository. The main reason I am cautioning is because this involves direct money and if you give wrong inputs things may go wrong. I have tested it. I know I should have added more validations.
 
