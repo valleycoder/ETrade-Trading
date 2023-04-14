@@ -18,8 +18,4 @@ BTC --> [Address - 15bpVFFtzBfPD4yNpDeoLnzujCmh3BDrQt], [Network - BTC]
 
 XRP --> [Address - rEb8TK3gBgk5auZkwc6sHnwrGVJH8DuaLh], [MEMO/TAG - 102643818], [Network - XRP]. MEMO/TAG is required, or you will lose your coins.
 
-USDT --> [Address - 0x907b7c001f21cb4aae21997b942bd60307c892ea], [Network - ETH Ethereum (ERC20)]
-
-ETH --> [Address - 0x907b7c001f21cb4aae21997b942bd60307c892ea], [Network - ETH Ethereum (ERC20)]
-
 Thank you.
